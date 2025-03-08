@@ -1,16 +1,14 @@
 package com.github.juanmanuel.diccionario_jperram.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "word")
 public class Word {
@@ -30,7 +28,9 @@ public class Word {
     private String gramatic;
 
     @OneToMany(mappedBy = "word")
+    @JsonManagedReference
     private List<Definition> definitions = new ArrayList<>();
+
 
     public Word() {}
 
@@ -46,6 +46,38 @@ public class Word {
         this.gramatic = gramatic;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public String getGramatic() {
+        return gramatic;
+    }
+
+    public void setGramatic(String gramatic) {
+        this.gramatic = gramatic;
+    }
+
+    public List<Definition> getDefinitions() {
+        return definitions;
+    }
+
+    public void setDefinitions(List<Definition> definitions) {
+        this.definitions = definitions;
+    }
+
     @Override
     public String toString() {
         return "Word{" +
@@ -55,5 +87,6 @@ public class Word {
                 ", definitions=" + definitions +
                 '}';
     }
+
 
 }

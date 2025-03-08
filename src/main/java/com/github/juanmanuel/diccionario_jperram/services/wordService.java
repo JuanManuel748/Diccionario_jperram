@@ -94,18 +94,15 @@ public class wordService {
 
 
     public Word createWordWithDefinitions(Word word) {
-        // Guardar la palabra primero
         System.out.println(word);
         Word createdWord = wordRepo.save(word);
 
-        // Asociar cada definición con la palabra creada y guardarlas
         List<Definition> savedDefinitions = new ArrayList<>();
         for (Definition definition : word.getDefinitions()) {
             definition.setWord(createdWord);
             savedDefinitions.add(defService.create(definition));
         }
 
-        // Actualizar la lista de definiciones de la palabra creada
         createdWord.setDefinitions(savedDefinitions);
 
         return createdWord;
